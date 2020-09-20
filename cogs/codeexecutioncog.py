@@ -8,129 +8,159 @@ class CodeExecutionCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.langtable = {
-            "csharp": {
+        tmp_langtable = [
+            {
                 "id": "1",
                 "name": "C#",
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/8/82/C_Sharp_logo.png",
+                "aliases": {"csharp", "cs"},
             },
-            "vb": {"id": "2", "name": "Visual Basic .NET", "logo": None},
-            "fsharp": {
+            {
+                "id": "2",
+                "name": "Visual Basic .NET",
+                "aliases": {"vbnet", "vb"},
+                "logo": None,
+            },
+            {
                 "id": "3",
                 "name": "F#",
+                "aliases": {"fsharp", "fs"},
                 "logo": "https://fsharp.org/img/logo/fsharp256.png",
             },
-            "java": {
+            {
                 "id": "4",
                 "name": "Java",
+                "aliases": {"java", "jsp"},
                 "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/262px-Java_programming_language_logo.svg.png",
             },
-            "python": {
+            {
                 "id": "24",
                 "name": "Python",
+                "aliases": {"python", "py", "gyp"},
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/600px-Python-logo-notext.svg.png",
             },
-            "py": {
-                "id": "24",
-                "name": "Python",
-                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/600px-Python-logo-notext.svg.png",
-            },
-            "c": {
+            {
                 "id": "6",
                 "name": "C",
+                "aliases": {"c", "h"},
                 "logo": "https://cdn.iconscout.com/icon/free/png-512/c-programming-569564.png",
             },
-            "cpp": {
+            {
                 "id": "7",
                 "name": "C++",
+                "aliases": {"c++", "h++", "cpp", "hpp", "cc", "hh", "cxx", "hxx"},
                 "logo": "https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.png",
             },
-            "c++": {
-                "id": "7",
-                "name": "C++",
-                "logo": "https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.png",
+            {"id": "8", "name": "PHP", "aliases": {"php", "php7"}, "logo": None},
+            {
+                "id": "9",
+                "name": "Pascal",
+                "aliases": {
+                    "pascal",
+                    "delphi",
+                    "dpr",
+                    "dfm",
+                    "pas",
+                    "freepascal",
+                    "lazarus",
+                    "lpr",
+                    "lfm",
+                },
+                "logo": None,
             },
-            "php": {"id": "8", "name": "PHP", "logo": None},
-            "pascal": {"id": "9", "name": "Pascal", "logo": None},
-            "objc": {"id": "10", "name": "Objective-C", "logo": None},
-            "haskell": {
+            {
+                "id": "10",
+                "name": "Objective-C",
+                "aliases": {
+                    "objectivec",
+                    "mm",
+                    "objc",
+                    "obj-c",
+                    "obj-c++",
+                    "objective-c++",
+                },
+                "logo": None,
+            },
+            {
                 "id": "11",
                 "name": "Haskell",
+                "aliases": {"haskell", "hs"},
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Haskell-Logo.svg/200px-Haskell-Logo.svg.png",
             },
-            "hs": {
-                "id": "11",
-                "name": "Haskell",
-                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Haskell-Logo.svg/200px-Haskell-Logo.svg.png",
-            },
-            "ruby": {
+            {
                 "id": "12",
                 "name": "Ruby",
+                "aliases": {"ruby", "rb", "gemspec", "podspec", "thor", "irb"},
                 "logo": "https://blog.mwpreston.net/wp-content/uploads/2018/09/ruby-logo.png",
             },
-            "rb": {
-                "id": "12",
-                "name": "Ruby",
-                "logo": "https://blog.mwpreston.net/wp-content/uploads/2018/09/ruby-logo.png",
-            },
-            "perl": {"id": "13", "name": "Perl", "logo": None},
-            "pl": {"id": "13", "name": "Perl", "logo": None},
-            "lua": {
+            {"id": "13", "name": "Perl", "aliases": {"perl", "pl", "pm"}, "logo": None},
+            {
                 "id": "14",
                 "name": "Lua",
+                "aliases": {"lua"},
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/200px-Lua-Logo.svg.png",
             },
-            "javascript": {
+            {
                 "id": "23",
                 "name": "JavaScript",
+                "aliases": {"javascript", "js", "jsx"},
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/200px-Unofficial_JavaScript_logo_2.svg.png",
             },
-            "js": {
-                "id": "23",
-                "name": "JavaScript",
-                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/200px-Unofficial_JavaScript_logo_2.svg.png",
-            },
-            "lisp": {"id": "18", "name": "Lisp", "logo": None},
-            "prolog": {"id": "19", "name": "Prolog", "logo": None},
-            "go": {"id": "20", "name": "Go", "logo": None},
-            "scala": {"id": "21", "name": "Scala", "logo": None},
-            "scheme": {"id": "22", "name": "Scheme", "logo": None},
-            "d": {"id": "30", "name": "D", "logo": None},
-            "swift": {"id": "37", "name": "Swift", "logo": None},
-            "bash": {"id": "38", "name": "Bash", "logo": None},
-            "erlang": {"id": "40", "name": "Erlang", "logo": None},
-            "erl": {"id": "40", "name": "Erlang", "logo": None},
-            "elixir": {"id": "41", "name": "Elixir", "logo": None},
-            "ocaml": {
+            {"id": "18", "name": "Lisp", "aliases": {"lisp"}, "logo": None},
+            {"id": "19", "name": "Prolog", "aliases": {"prolog"}, "logo": None},
+            {"id": "20", "name": "Go", "aliases": {"golang", "go"}, "logo": None},
+            {"id": "21", "name": "Scala", "aliases": {"scala"}, "logo": None},
+            {"id": "22", "name": "Scheme", "aliases": {"scheme"}, "logo": None},
+            {"id": "30", "name": "D", "aliases": {"d"}, "logo": None},
+            {"id": "37", "name": "Swift", "aliases": {"swift"}, "logo": None},
+            {"id": "38", "name": "Bash", "aliases": {"bash"}, "logo": None},
+            {"id": "40", "name": "Erlang", "aliases": {"erlang", "erl"}, "logo": None},
+            {"id": "41", "name": "Elixir", "aliases": {"elixir"}, "logo": None},
+            {
                 "id": "42",
                 "name": "Ocaml",
+                "aliases": {"ocaml", "ml"},
                 "logo": "https://ocaml.org/logo/Colour/PNG/colour-logo.png",
             },
-            "kotlin": {
+            {
                 "id": "43",
                 "name": "Kotlin",
+                "aliases": {"kotlin", "kt"},
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin-logo.svg/200px-Kotlin-logo.svg.png",
             },
-            "kt": {
-                "id": "43",
-                "name": "Kotlin",
-                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin-logo.svg/200px-Kotlin-logo.svg.png",
+            {
+                "id": "44",
+                "name": "Brainfuck",
+                "aliases": {"brainfuck", "bf"},
+                "logo": None,
             },
-            "brainfuck": {"id": "44", "name": "Brainfuck", "logo": None},
-            "fortran": {"id": "45", "name": "Fortran", "logo": None},
-            "rust": {
+            {
+                "id": "45",
+                "name": "Fortran",
+                "aliases": {"fortran", "f90", "f95"},
+                "logo": None,
+            },
+            {
                 "id": "46",
                 "name": "Rust",
+                "aliases": {"rust", "rs"},
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1200px-Rust_programming_language_black_logo.svg.png",
             },
-            "rs": {
-                "id": "46",
-                "name": "Rust",
-                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1200px-Rust_programming_language_black_logo.svg.png",
+            {
+                "id": "47",
+                "name": "Clojure",
+                "aliases": {"clojure", "clj"},
+                "logo": None,
             },
-            "clojure": {"id": "47", "name": "Clojure", "logo": None},
-            "clj": {"id": "47", "name": "Clojure", "logo": None},
-        }
+        ]
+
+        self.langtable = dict()
+
+        for lang in tmp_langtable:
+            lang_data = lang.copy()
+            del lang_data["aliases"]
+            for lang_name in lang["aliases"]:
+                self.langtable[lang_name] = lang_data
 
     def _exec(self, stdin, language, code, compiler_args=""):
         payload = {

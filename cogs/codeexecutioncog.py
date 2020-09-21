@@ -34,12 +34,6 @@ class CodeExecutionCog(commands.Cog):
                 "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/262px-Java_programming_language_logo.svg.png",
             },
             {
-                "id": "24",
-                "name": "Python",
-                "aliases": {"python", "py", "gyp"},
-                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/600px-Python-logo-notext.svg.png",
-            },
-            {
                 "id": "6",
                 "name": "C",
                 "aliases": {"c", "h"},
@@ -98,7 +92,12 @@ class CodeExecutionCog(commands.Cog):
                 "aliases": {"ruby", "rb", "gemspec", "podspec", "thor", "irb"},
                 "logo": "https://blog.mwpreston.net/wp-content/uploads/2018/09/ruby-logo.png",
             },
-            {"id": "13", "name": "Perl", "aliases": {"perl", "pl", "pm"}, "logo": None},
+            {
+                "id": "13",
+                "name": "Perl",
+                "aliases": {"perl", "pl", "pm"},
+                "logo": "https://www.perlfoundation.org/uploads/1/0/6/6/106663517/powered-by-perl-300px_orig.png",
+            },
             {
                 "id": "14",
                 "name": "Lua",
@@ -106,10 +105,10 @@ class CodeExecutionCog(commands.Cog):
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/200px-Lua-Logo.svg.png",
             },
             {
-                "id": "23",
-                "name": "JavaScript",
-                "aliases": {"javascript", "js", "jsx"},
-                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/200px-Unofficial_JavaScript_logo_2.svg.png",
+                "id": "15",
+                "name": "x86 Assembly",
+                "aliases": {"x86asm"},
+                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Netwide_Assembler.svg/320px-Netwide_Assembler.svg.png",
             },
             {
                 "id": "18",
@@ -142,10 +141,28 @@ class CodeExecutionCog(commands.Cog):
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Lambda_lc.svg/375px-Lambda_lc.svg.png",
             },
             {
+                "id": "23",
+                "name": "JavaScript",
+                "aliases": {"javascript", "js", "jsx"},
+                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/200px-Unofficial_JavaScript_logo_2.svg.png",
+            },
+            {
+                "id": "24",
+                "name": "Python",
+                "aliases": {"python", "py", "gyp"},
+                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/600px-Python-logo-notext.svg.png",
+            },
+            {
                 "id": "30",
                 "name": "D",
                 "aliases": {"d"},
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/D_Programming_Language_logo.svg/317px-D_Programming_Language_logo.svg.png",
+            },
+            {
+                "id": "32",
+                "name": "Tcl",
+                "aliases": {"tcl"},
+                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Tcl-powered.svg/307px-Tcl-powered.svg.png",
             },
             {
                 "id": "37",
@@ -158,6 +175,12 @@ class CodeExecutionCog(commands.Cog):
                 "name": "Bash",
                 "aliases": {"bash"},
                 "logo": "https://raw.githubusercontent.com/odb/official-bash-logo/master/assets/Logos/Icons/PNG/256x256.png",
+            },
+            {
+                "id": "39",
+                "name": "Ada",
+                "aliases": {"ada"},
+                "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Ada_Mascot_with_slogan.svg/442px-Ada_Mascot_with_slogan.svg.png",
             },
             {
                 "id": "40",

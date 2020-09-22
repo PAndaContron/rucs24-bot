@@ -2,6 +2,8 @@ from discord import Embed
 from discord.ext import commands
 import json
 import requests
+from discord_markdown.discord_markdown import parse_text as parse_markdown
+import discord_markdown.ast as md_ast
 
 
 class CodeExecutionCog(commands.Cog):
@@ -240,6 +242,36 @@ class CodeExecutionCog(commands.Cog):
             for lang_name in lang["aliases"]:
                 self.langtable[lang_name] = lang_data
 
+    def unpack_formatted_text(self, text):
+        if type(text) == md_ast.FormattedText:
+            return self.unpack_formatted_text(text.value)
+        return text.value
+
+    def parse_args(self, arguments):
+        ast = parse_markdown(arguments)
+        elements = []
+        for par in ast:
+            elements.extend(par.elements)
+        init_args = []
+        code = None
+        lang = None
+        end_args = []
+        for el in elements:
+            if code:
+                end_args.append(self.unpack_formatted_text(el))
+            else:
+                if type(el) == md_ast.CodeBlock:
+                    code = self.unpack_formatted_text(el.value)
+                    lang = el.md_tag.replace("`", "").lower()
+                else:
+                    init_args.append(self.unpack_formatted_text(el))
+        return {
+            "init_args": "".join(init_args),
+            "end_args": "".join(end_args),
+            "code": code,
+            "lang": lang,
+        }
+
     def _exec(self, stdin, language, code, compiler_args=""):
         payload = {
             "LanguageChoice": language,
@@ -263,9 +295,9 @@ class CodeExecutionCog(commands.Cog):
 
     @commands.command()
     async def exec(self, ctx, *, arguments):
-        arg_lines = arguments.split("\n")
-        language = arg_lines[0].replace("`", "")
-        code = "\n".join(arg_lines[1:]).split("```")[0]
+        parsed_args = self.parse_args(arguments)
+        language = parsed_args["lang"]
+        code = parsed_args["code"]
 
         try:
             language_details = self.langtable[language]
